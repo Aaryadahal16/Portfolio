@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Attack Progression Banner</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+        :root {
+            --bg-color: #F7F6F6;
+            --navy: #34495e;
+            --orange: #e67e22;
+            --red: #e74c3c;
+            --green-opt: #27ae60;
+            --text-main: #2c3e50;
+            --text-dim: #7f8c8d;
+            
+            /* 15 Second Loop */
+            --total-duration: 15s; 
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+            height: 100%; width: 100%;
+            display: block;
+        }
+
+        .banner-container {
+            width: 100%;
+            max-width: 100%;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        /* --- PATH ANIMATION --- */
+        .main-path {
+            stroke-dasharray: 1800;
+            stroke-dashoffset: 1800;
+            animation: drawPath var(--total-duration) ease-in-out infinite;
+        }
+
+        @keyframes drawPath {
+            0% { stroke-dashoffset: 1800; opacity: 0; }
+            5% { opacity: 1; }
+            75% { stroke-dashoffset: 0; opacity: 1; }
+            92% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* --- NODE REVEAL --- */
+        .node {
+            opacity: 0;
+            transform-origin: center;
+            animation: nodePop var(--total-duration) ease-out infinite;
+        }
+
+        @keyframes nodePop {
+            0% { opacity: 0; transform: scale(0.6); }
+            /* Synced to 15s path speed */
+            8% { opacity: 1; transform: scale(1); }
+            88% { opacity: 1; transform: scale(1); }
+            95%, 100% { opacity: 0; transform: scale(0.9); }
+        }
+
+        /* Calculated Delays for 15s flow */
+        .stage-1 { animation-delay: 0s; }
+        .stage-2 { animation-delay: 1.8s; }
+        .stage-3 { animation-delay: 3.6s; }
+        .stage-4 { animation-delay: 5.4s; }
+        .stage-5 { animation-delay: 6.9s; }
+        .stage-6 { animation-delay: 7.9s; }
+
+        /* --- STYLING ELEMENTS --- */
+        .ripple {
+            fill: var(--green-opt);
+            opacity: 0;
+            animation: ripple-effect 3s ease-out infinite;
+            animation-delay: 2.5s;
+        }
+        @keyframes ripple-effect {
+            0% { r: 5; opacity: 0.8; }
+            70% { r: 35; opacity: 0; }
+            100% { r: 0; opacity: 0; }
+        }
+
+        .icon-bg { fill: white; stroke-width: 1.8; }
+        .label { font-size: 13px; font-weight: 600; fill: var(--text-main); letter-spacing: -0.2px; }
+        .mitre-bg { fill: #ecedeb; rx: 4; }
+        .mitre-text { font-size: 9px; font-weight: 600; fill: var(--text-dim); text-transform: uppercase; }
+        
+        .red-glow {
+            fill: var(--red);
+            filter: blur(10px);
+            animation: pulse-red 2.5s ease-in-out infinite;
+        }
+        @keyframes pulse-red { 0%, 100% { opacity: 0.1; } 50% { opacity: 0.3; } }
+
+    </style>
+</head>
+<body>
+
+<div class="banner-container">
+    <svg viewBox="0 0 1100 400" xmlns="http://www.w3.org/2000/svg" fill="none">
+        
+        <defs>
+            <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="var(--navy)" />
+                <stop offset="60%" stop-color="var(--orange)" />
+                <stop offset="100%" stop-color="var(--red)" />
+            </linearGradient>
+        </defs>
+
+        <!-- Gentler Wavy Path: Values adjusted for 290px valleys -->
+        <path class="main-path" d="M 50,200 
+                                 C 120,200 180,110 250,110 
+                                 C 320,110 380,290 450,290 
+                                 C 520,290 580,110 650,110 
+                                 C 720,110 780,290 850,290 
+                                 C 920,290 980,110 1050,110" 
+              stroke="url(#lineGrad)" stroke-width="2.5" />
+
+        <!-- 1. MIDDLE -->
+        <g class="node stage-1">
+            <circle cx="50" cy="200" r="8" fill="var(--navy)" />
+            <text x="50" y="175" text-anchor="middle" class="label">Failed Login</text>
+            <rect x="20" y="215" width="60" height="16" class="mitre-bg" />
+            <text x="50" y="226" text-anchor="middle" class="mitre-text">T1110</text>
+        </g>
+
+        <!-- 2. TOP -->
+        <g class="node stage-2">
+            <circle class="ripple" cx="250" cy="110" r="10" />
+            <circle cx="250" cy="110" r="22" class="icon-bg" stroke="var(--navy)" />
+            <path d="M246,106 v-3 a4,4 0 0,1 8,0 v3 M243,106 h14 v10 h-14 z" stroke="var(--navy)" stroke-width="1.5" />
+            <text x="250" y="75" text-anchor="middle" class="label">Multiple Attempts</text>
+            <rect x="220" y="140" width="60" height="16" class="mitre-bg" />
+            <text x="250" y="151" text-anchor="middle" class="mitre-text">T1110</text>
+            <text x="250" y="175" text-anchor="middle" fill="var(--green-opt)" font-size="10" font-weight="bold">DETECTION OPPORTUNITY</text>
+        </g>
+
+        <!-- 3. BOTTOM (Gentle Valley) -->
+        <g class="node stage-3">
+            <circle cx="450" cy="290" r="22" class="icon-bg" stroke="var(--navy)" />
+            <circle cx="450" cy="286" r="4" stroke="var(--navy)" stroke-width="1.5"/>
+            <path d="M442,298 a8,8 0 0,1 16,0" stroke="var(--navy)" stroke-width="1.5"/>
+            <text x="450" y="255" text-anchor="middle" class="label">Successful Login</text>
+            <rect x="410" y="320" width="80" height="16" class="mitre-bg" />
+            <text x="450" y="331" text-anchor="middle" class="mitre-text">T1078</text>
+        </g>
+
+        <!-- 4. TOP -->
+        <g class="node stage-4">
+            <circle cx="650" cy="110" r="25" class="icon-bg" stroke="var(--orange)" stroke-width="2" />
+            <path d="M650,102 l-5,5 h10 z M650,118 v-10" stroke="var(--orange)" stroke-width="2" />
+            <text x="650" y="75" text-anchor="middle" class="label" fill="var(--orange)">Privilege Escalation</text>
+            <rect x="620" y="145" width="60" height="16" class="mitre-bg" />
+            <text x="650" y="156" text-anchor="middle" class="mitre-text">T1068</text>
+        </g>
+
+        <!-- 5. BOTTOM (Gentle Valley) -->
+        <g class="node stage-5">
+            <circle cx="850" cy="290" r="22" class="icon-bg" stroke="var(--orange)" />
+            <circle cx="845" cy="285" r="2" fill="var(--orange)"/><circle cx="855" cy="285" r="2" fill="var(--orange)"/><circle cx="850" cy="295" r="2" fill="var(--orange)"/>
+            <text x="850" y="255" text-anchor="middle" class="label">Lateral Movement</text>
+            <rect x="820" y="320" width="60" height="16" class="mitre-bg" />
+            <text x="850" y="331" text-anchor="middle" class="mitre-text">T1021</text>
+        </g>
+
+        <!-- 6. TOP -->
+        <g class="node stage-6">
+            <circle class="red-glow" cx="1050" cy="110" r="30" />
+            <circle cx="1050" cy="110" r="28" class="icon-bg" stroke="var(--red)" stroke-width="2.5" />
+            <rect x="1042" y="108" width="16" height="10" rx="1" stroke="var(--red)" stroke-width="1.5" />
+            <path d="M1050,104 v-8 M1046,100 l4,-4 l4,4" stroke="var(--red)" stroke-width="1.5" />
+            <text x="1050" y="70" text-anchor="middle" class="label" fill="var(--red)">Data Exfiltration</text>
+            <rect x="1020" y="150" width="60" height="16" class="mitre-bg" />
+            <text x="1050" y="161" text-anchor="middle" class="mitre-text">T1041</text>
+        </g>
+    </svg>
+
+    <!-- Footer Overlay -->
+    <div style="position: absolute; right: 40px; bottom: 10px; text-align: right; pointer-events: none;">
+        <h3 style="margin:0; color:var(--text-main); font-weight:500; font-size:18px;">The earlier you see it, the safer you are.</h3>
+        <p style="margin:2px 0 0; color:var(--text-dim); font-size:12px; letter-spacing: 0.3px;"></p>
+    </div>
+</div>
+
+</body>
+</html>

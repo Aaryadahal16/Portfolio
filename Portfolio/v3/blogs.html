@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blogs — Aarya Dahal</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <style>
+    .blogs-hero {
+      padding: calc(var(--nav-h) + 5rem) 0 4rem;
+      text-align: center;
+    }
+    .blogs-hero p {
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin: 1rem auto 2rem;
+    }
+    .blogs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.75rem;
+      padding-bottom: 6rem;
+    }
+    .blog-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      transition: all var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .blog-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+    .blog-tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .blog-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+    .blog-excerpt {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      flex: 1;
+    }
+    .blog-meta {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-light);
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .blog-read-link {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: gap var(--transition);
+    }
+    .blog-card:hover .blog-read-link { gap: 0.6rem; }
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 5rem 2rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+    }
+    .empty-state a { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">AD / Blogs</div>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button id="theme-toggle" aria-label="Toggle theme">
+        <span class="toggle-icon">🌙</span>
+        <span class="toggle-label">Dark</span>
+      </button>
+      <button class="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+    <div class="blogs-hero">
+      <span class="section-label">Writing</span>
+      <h1>Blog<em style="color:var(--accent)">.</em></h1>
+      <p>Thoughts on cybersecurity, threat intelligence, CTF writeups, and the occasional deep-dive into offensive tooling.</p>
+      <a href="https://medium.com" target="_blank" rel="noopener" class="btn btn-outline">Follow on Medium ↗</a>
+    </div>
+
+    <div class="blogs-grid" id="blogs-grid">
+      <!-- Sample blog cards — replace with your actual posts or fetch from Medium RSS -->
+      <article class="blog-card">
+        <span class="blog-tag">Threat Intelligence</span>
+        <h2 class="blog-title">Building a Live Threat Intel Ticker with AbuseIPDB & ThreatFox</h2>
+        <p class="blog-excerpt">A walkthrough of integrating multiple threat intelligence APIs into a real-time rotating data ticker for a cybersecurity portfolio.</p>
+        <div class="blog-meta">
+          <span>Jan 2025</span>
+          <span>8 min read</span>
+        </div>
+        <a href="https://medium.com" target="_blank" rel="noopener" class="blog-read-link">Read on Medium →</a>
+      </article>
+
+      <article class="blog-card">
+        <span class="blog-tag">CTF Writeup</span>
+        <h2 class="blog-title">HackTheBox — Forest Machine Walkthrough</h2>
+        <p class="blog-excerpt">Step-by-step exploitation of an Active Directory environment using AS-REP roasting, Bloodhound, and DCSync.</p>
+        <div class="blog-meta">
+          <span>Dec 2024</span>
+          <span>12 min read</span>
+        </div>
+        <a href="https://medium.com" target="_blank" rel="noopener" class="blog-read-link">Read on Medium →</a>
+      </article>
+
+      <article class="blog-card">
+        <span class="blog-tag">Malware Analysis</span>
+        <h2 class="blog-title">Dissecting a Python-based Info-Stealer: Static to Dynamic Analysis</h2>
+        <p class="blog-excerpt">Analysis of a commodity infostealer targeting credentials and clipboard data, with YARA rules and IOC extraction.</p>
+        <div class="blog-meta">
+          <span>Nov 2024</span>
+          <span>15 min read</span>
+        </div>
+        <a href="https://medium.com" target="_blank" rel="noopener" class="blog-read-link">Read on Medium →</a>
+      </article>
+
+      <article class="blog-card">
+        <span class="blog-tag">Blue Team</span>
+        <h2 class="blog-title">SIEM Tuning: Reducing Alert Fatigue Without Missing Real Threats</h2>
+        <p class="blog-excerpt">Practical strategies for tuning Splunk and Elastic SIEM rules to increase signal-to-noise ratio in a SOC environment.</p>
+        <div class="blog-meta">
+          <span>Oct 2024</span>
+          <span>10 min read</span>
+        </div>
+        <a href="https://medium.com" target="_blank" rel="noopener" class="blog-read-link">Read on Medium →</a>
+      </article>
+
+      <article class="blog-card">
+        <span class="blog-tag">OSINT</span>
+        <h2 class="blog-title">OSINT for Threat Hunters: Tools, Techniques, and Tradecraft</h2>
+        <p class="blog-excerpt">A practical guide to open-source intelligence gathering for threat hunting — from Maltego to Shodan to custom scripts.</p>
+        <div class="blog-meta">
+          <span>Sep 2024</span>
+          <span>11 min read</span>
+        </div>
+        <a href="https://medium.com" target="_blank" rel="noopener" class="blog-read-link">Read on Medium →</a>
+      </article>
+
+      <article class="blog-card">
+        <span class="blog-tag">Red Team</span>
+        <h2 class="blog-title">Living off the Land: PowerShell-based Lateral Movement Techniques</h2>
+        <p class="blog-excerpt">Exploring LOLBAS techniques for lateral movement in Windows environments — and how defenders can detect them.</p>
+        <div class="blog-meta">
+          <span>Aug 2024</span>
+          <span>14 min read</span>
+        </div>
+        <a href="https://medium.com" target="_blank" rel="noopener" class="blog-read-link">Read on Medium →</a>
+      </article>
+    </div>
+  </div>
+</main>
+
+<footer style="border-top:1px solid var(--border-soft);padding:2rem;text-align:center;font-family:var(--font-mono);font-size:0.68rem;color:var(--text-light);">
+  <a href="index.html" style="color:var(--accent)">← Back to Portfolio</a>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

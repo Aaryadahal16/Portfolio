@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blogs — Aarya Dahal</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <style>
+    /* ── Blogs hero ─────────────────────────────────────────── */
+    .blogs-hero {
+      padding: calc(var(--nav-h) + 4rem) 0 3rem;
+      text-align: center;
+    }
+
+    .blogs-hero p {
+      font-size: 0.95rem;
+      max-width: 500px;
+      margin: 0.75rem auto 1.75rem;
+      color: var(--text-secondary);
+    }
+
+    /* ── Blog grid ──────────────────────────────────────────── */
+    .blogs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      padding-bottom: 4rem;
+    }
+
+    /* ── Blog card ──────────────────────────────────────────── */
+    .blog-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 28px var(--accent-glow);
+    }
+
+    /* Thumbnail */
+    .blog-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: var(--surface);
+      display: block;
+    }
+
+    .blog-thumb-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      color: var(--border);
+    }
+
+    /* Body */
+    .blog-card-body {
+      padding: 1rem 1.1rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      flex: 1;
+    }
+
+    .blog-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .blog-title {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .blog-excerpt {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .blog-meta {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-top: 0.25rem;
+      padding-top: 0.65rem;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .blog-read-arrow {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: gap 0.2s ease;
+    }
+
+    .blog-card:hover .blog-read-arrow {
+      gap: 0.55rem;
+    }
+
+    /* States */
+    .blogs-loading,
+    .blogs-error {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .blogs-error a {
+      color: var(--accent);
+    }
+
+    /* Footer */
+    .blogs-footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 1.25rem;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-light);
+    }
+
+    .blogs-footer a {
+      color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html#hero" class="nav-logo">C:\AD&gt;<span class="cmd-blink">_</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#certificates">Education</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <label class="theme-switch" aria-label="Toggle dark/light mode">
+          <input id="theme-checkbox" type="checkbox" />
+          <div class="slider round">
+            <div class="sun-moon">
+              <svg id="moon-dot-1" class="moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
+              <svg id="moon-dot-2" class="moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
+              <svg id="moon-dot-3" class="moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
+              <svg id="light-ray-1" class="light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
+              <svg id="light-ray-2" class="light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
+              <svg id="light-ray-3" class="light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
+              <svg id="cloud-1" class="cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
+              <svg id="cloud-2" class="cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
+              <svg id="cloud-3" class="cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
+              <svg id="cloud-4" class="cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
+              <svg id="cloud-5" class="cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
+              <svg id="cloud-6" class="cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
+            </div>
+            <div class="stars">
+              <svg id="star-1" class="star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path></svg>
+              <svg id="star-2" class="star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path></svg>
+              <svg id="star-3" class="star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path></svg>
+              <svg id="star-4" class="star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path></svg>
+            </div>
+          </div>
+        </label>
+        <button class="nav-hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="container">
+
+      <div class="blogs-hero">
+        <span class="section-label">Writing</span>
+        <h1>Blog<em style="color:var(--accent)">.</em></h1>
+        <p>Thoughts on cybersecurity, threat intelligence, CTF writeups, and the occasional deep-dive into offensive
+          tooling.</p>
+        <a href="https://medium.com/@dahalaarya16" target="_blank" rel="noopener" class="btn btn-outline">Follow on
+          Medium ↗</a>
+      </div>
+
+      <div class="blogs-grid" id="blogs-grid">
+        <div class="blogs-loading">◌ Fetching latest posts from Medium…</div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="blogs-footer">
+    <a href="index.html">← Back to Portfolio</a>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      const USERNAME = 'dahalaarya16'; // without @
+      const RSS_URL = `https://medium.com/feed/@${USERNAME}`;
+
+      const PROXY_1 = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;
+      const PROXY_2 = `https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`;
+
+      const grid = document.getElementById('blogs-grid');
+
+      function showError() {
+        grid.innerHTML = `
+      <div class="blogs-error">
+        Unable to load posts.
+        <br/>
+        <a href="https://medium.com/@${USERNAME}" target="_blank">View on Medium →</a>
+      </div>`;
+      }
+
+      function parseRSS(xmlText) {
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(xmlText, "text/xml");
+
+        const items = [...xml.querySelectorAll("item")];
+
+        return items.slice(0, 6).map(item => ({
+          title: item.querySelector("title")?.textContent,
+          link: item.querySelector("link")?.textContent,
+          pubDate: item.querySelector("pubDate")?.textContent,
+          description: item.querySelector("description")?.textContent
+        }));
+      }
+
+      function createCard(post) {
+        const div = document.createElement("a");
+        div.className = "blog-card";
+        div.href = post.link;
+        div.target = "_blank";
+
+        div.innerHTML = `
+      <div class="blog-card-body">
+        <span class="blog-tag">Medium</span>
+        <div class="blog-title">${post.title}</div>
+        <p class="blog-excerpt">${post.description.replace(/<[^>]*>/g, '').slice(0, 140)}...</p>
+        <div class="blog-meta">
+          <span>${new Date(post.pubDate).toLocaleDateString()}</span>
+          <span class="blog-read-arrow">Read →</span>
+        </div>
+      </div>
+    `;
+        return div;
+      }
+
+      async function loadBlogs() {
+        try {
+          // TRY rss2json first
+          let res = await fetch(PROXY_1);
+          let data = await res.json();
+
+          if (data.status === "ok") {
+            grid.innerHTML = "";
+            data.items.slice(0, 6).forEach(post => {
+              grid.appendChild(createCard(post));
+            });
+            return;
+          }
+
+          throw new Error();
+        } catch {
+          try {
+            // FALLBACK → raw RSS
+            let res = await fetch(PROXY_2);
+            let data = await res.json();
+
+            const posts = parseRSS(data.contents);
+
+            grid.innerHTML = "";
+            posts.forEach(post => {
+              grid.appendChild(createCard(post));
+            });
+
+          } catch {
+            showError();
+          }
+        }
+      }
+
+      loadBlogs();
+    })();
+  </script>
+
+</body>
+
+</html>

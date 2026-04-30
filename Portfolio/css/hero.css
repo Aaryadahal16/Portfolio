@@ -1,0 +1,399 @@
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+
+#hero {
+  min-height: 100vh;
+  padding-top: var(--nav-h);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* ── Left: intro ──────────────────────────────────────────── */
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2.5rem 3rem 4rem;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.1rem;
+  opacity: 0;
+  animation: heroFadeUp 0.6s 0.15s forwards;
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: var(--text-primary);
+  opacity: 0;
+  animation: heroFadeUp 0.7s 0.3s forwards;
+}
+
+.hero-name em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+/* Typewriter */
+.hero-title {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  margin-top: 1rem;
+  opacity: 0;
+  animation: heroFadeUp 0.7s 0.45s forwards;
+  min-height: 1.4em;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.hero-static-title {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.hero-blink-cursor {
+  color: var(--accent);
+  font-weight: 400;
+  animation: blinkCursor 1s step-end infinite;
+  margin-left: 0.15em;
+}
+
+@keyframes blinkCursor {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.hero-rule {
+  width: 36px;
+  height: 1.5px;
+  background: var(--accent);
+  margin: 1.6rem 0;
+  opacity: 0;
+  animation: heroFadeUp 0.6s 0.6s forwards;
+}
+
+.hero-tagline {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  max-width: 360px;
+  opacity: 0;
+  animation: heroFadeUp 0.7s 0.72s forwards;
+}
+
+.hero-tagline strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.hero-blog-btn {
+  margin-top: 1.8rem;
+  opacity: 0;
+  animation: heroFadeUp 0.7s 0.85s forwards;
+}
+
+.hero-blog-btn .btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-size: 0.72rem;
+  padding: 0.6rem 1.4rem;
+  letter-spacing: 0.1em;
+}
+
+.hero-blog-btn .btn-primary:hover {
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+  box-shadow: 0 6px 22px var(--accent-glow);
+}
+
+/* ── Right: animation panel ───────────────────────────────── */
+.hero-right {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-right::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  background: linear-gradient(to right, var(--bg), transparent);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.attack-svg-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.attack-svg-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+
+.attack-footer-label {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  text-align: right;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  animation: heroFadeUp 0.8s 1.2s forwards;
+}
+
+.attack-footer-label p {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-style: italic;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+  opacity: 0.5;
+}
+
+/* ── Attack SVG color variables ───────────────────────────── */
+.attack-svg {
+  --atk-navy: var(--text-primary);
+  --atk-orange: #e07b30;
+  --atk-red: #e05252;
+  --atk-green: var(--accent);
+  --atk-dim: var(--text-muted);
+  --atk-mitre-bg: var(--surface);
+  --atk-node-bg: var(--bg-card);
+}
+
+/* Path animation */
+.atk-main-path {
+  stroke-dasharray: 1800;
+  stroke-dashoffset: 1800;
+  animation: atkDraw 15s ease-in-out infinite;
+}
+
+@keyframes atkDraw {
+  0% {
+    stroke-dashoffset: 1800;
+    opacity: 0;
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  75% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+
+  92% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.atk-node {
+  opacity: 0;
+  transform-origin: center;
+  animation: atkPop 15s ease-out infinite;
+}
+
+@keyframes atkPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  8% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  88% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  95%,
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.atk-s1 {
+  animation-delay: 0s;
+}
+
+.atk-s2 {
+  animation-delay: 1.8s;
+}
+
+.atk-s3 {
+  animation-delay: 3.6s;
+}
+
+.atk-s4 {
+  animation-delay: 5.4s;
+}
+
+.atk-s5 {
+  animation-delay: 6.9s;
+}
+
+.atk-s6 {
+  animation-delay: 7.9s;
+}
+
+.atk-ripple {
+  fill: var(--accent);
+  opacity: 0;
+  animation: atkRipple 3s ease-out infinite 2.5s;
+}
+
+@keyframes atkRipple {
+  0% {
+    r: 5;
+    opacity: 0.85;
+  }
+
+  70% {
+    r: 38;
+    opacity: 0;
+  }
+
+  100% {
+    r: 0;
+    opacity: 0;
+  }
+}
+
+.atk-red-glow {
+  fill: #e05252;
+  filter: blur(12px);
+  animation: atkRedPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes atkRedPulse {
+
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 860px) {
+  #hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    min-height: 100vh;
+  }
+
+  .hero-left {
+    padding: 2rem 1.75rem 1.25rem;
+    justify-content: center;
+  }
+
+  .hero-right {
+    display: none;
+  }
+
+  .hero-tagline {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-name {
+    font-size: 2.2rem;
+  }
+
+  #hero {
+    grid-template-rows: 1fr;
+  }
+}
+
+/* ── Light mode abstract hero background ─────────────────── */
+:root #hero {
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(226, 228, 228, 0.217) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 20%, rgba(206, 207, 207, 0.155) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 60% 80%, rgba(224, 227, 227, 0.084) 0%, transparent 50%);
+}
+
+[data-theme="dark"] #hero {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 30px 30px;
+  background-position: center center;
+}
+
+/* ── Tagline visibility fix ──────────────────────────────── */
+.attack-footer-label p {
+  color: #555555;
+  /* light mode: readable dark gray */
+  opacity: 2;
+}
+
+[data-theme="dark"] .attack-footer-label p {
+  color: #a8bdd4;
+  /* dark mode: lighter, clearly visible */
+  opacity: 0.85;
+}
